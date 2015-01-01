@@ -3,16 +3,24 @@ Pliidikivi
 
 MTAT.03.006 projekt. Scala + maven
 
+Vägev kaardimäng. Tõsine asi. Siin pole midagi naljakat. 
 
-See siin on Scala projekt. Seda saab importida Eclipse'i. Projekti ehitamisel olen kasutanud Mavenit. 
-Projektiga on kaasas ka 9 testi, aga neid on raske ilma Mavenita käivitada.
+## Käivitamine
+Käivitamiseks on kaks võimalust:
 
+* `` mvn exec:java `` , kuid kahjuks siis Windowsi peal puuduvad täpitähed
+* `` mvn package`` ning seejärel ``java -jar target/Pliidikivi-1.0.0.jar``.
 
-
-Projekti käivitamine, kui maven on olemas
-`` mvn package exec:java -Dexec.mainClass=ee.tkasekamp.pliidikivi.Game ``
+Teste on 9 ning nende jaoks ``mvn test``.
 
 Kaartide sisselugemine käib läbi faili src/main/resources/paths.txt. Seal on defineeritud mõlema mängija kaardipakkide asukohad. 
+
+pom.xml koosneb suvaliselt kokku kopeeritud asjadest. Kõik selles ei pruugi olla vajalik.
+
+## Eclipse importimine
+Projekt on tehtud kasutades Eclipse'i koos Scala IDE plugin'iga. Projekti kaustas tuleb teha ``mvn eclipse:eclipse`` ning siis projekt importida. Seejärel Eclipse valikutes Configure -> Add Scala nature. Teha tuleks ka Convert to Maven project. Kui kõik on punane, siis Project -> Clean. Nüüd peaks Eclipse rahul olema.
+
+Märkus: maven võib katki olla, kui Eclipse'il pole m2e scala plugini või midagi sellist. See tuleks ka installida.  
 
 ## Mängust ise:
 Parser on täiesti töökorras. Parseri tegemisel kasutasin üht scala librarit, mis oli varem scala keele osa. Kahjuks nad võtsid selle välja ning selle kasutamiseks pidin tegema maven projekti.

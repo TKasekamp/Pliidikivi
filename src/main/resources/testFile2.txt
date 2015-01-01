@@ -1,0 +1,12 @@
+[ ("Boulderfist Ogre"
+, 1
+, MinionCard [OnPlay [Choose [Any [AnyCreature, AnyHero], Not [Any[Self], Type Beast]] [Health Relative (-1), Taunt True], DrawCard]
+, OnDeath [DrawCard], UntilDeath [All  [Not[AnyFriendly] ] [Health Relative (-6)] ]] 6 7 False Nothing),
+
+("Elven Archer3"
+, 4
+, MinionCard [OnPlay [Choose [] [Health Relative (-1)]]] 4 5 False Nothing),
+
+("Gnomish Inventor"
+, 4
+, MinionCard [OnPlay [DrawCard]] 2 4 False Nothing)]

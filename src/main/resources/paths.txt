@@ -1,0 +1,2 @@
+red=src/main/resources/testFile2.txt
+blue=src/main/resources/testFile.txt

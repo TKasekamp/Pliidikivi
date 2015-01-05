@@ -6,7 +6,7 @@ import ee.tkasekamp.pliidikivi.card.enums._
 import ee.tkasekamp.pliidikivi.card.enums.MinionType._
 import ee.tkasekamp.pliidikivi.card.enums.Type._
 /*
- * Parser
+ * Parser done using Scala built-in tokenparser. This makes it look a lot clearer, but also a bit more "magic".
  */
 object GameParser extends StandardTokenParsers {
   lexical.delimiters ++= List("(", ")", "[", "]", ",", "-")
@@ -144,6 +144,9 @@ object GameParser extends StandardTokenParsers {
     }
   }
 
+  /**
+   * Method for parsing everything in a cardpack
+   */
   def doMatch(text: String): List[Card] = {
     file(new lexical.Scanner(text)) match {
       case Success(ord, _) => ord

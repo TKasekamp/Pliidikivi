@@ -13,7 +13,7 @@ object Game extends App {
   var gameOver = false;
 
   // Opposite to starting. Will be set to start values in first preTurn()  
-  var currentTurnPoints = 0;
+  var currentTurnPoints = 4;
   var redPlayerTurn = false;
   var fieldCards: Buffer[Card] = Buffer()
 
@@ -30,6 +30,9 @@ object Game extends App {
 
   }
 
+  /**
+   * Print turn info, take card and then wait for the player to either select a card or end the turn.
+   */
   def turn(player: Player) {
     InputHelper.printTurnStart()
     println(player.takeCard)
@@ -60,8 +63,10 @@ object Game extends App {
 
   def filterEffects(card: Card, ef: EffectType.Value) {
     println(s"MÄNG - ${ef} kontroll")
-    for { e <- card.cardType.effects if e.effectType == ef }
+    for { e <- card.cardType.effects if e.effectType == ef } {
+      println(s"MÄNG - praegune effekt: " + e.eventEffects.toString())
       matchEventEffects(card, e.eventEffects)
+    }
   }
 
   def matchEventEffects(card: Card, e: List[EventEffect]) {
@@ -96,7 +101,7 @@ object Game extends App {
         applies = applies && filterApplies(card, f, other)
       }
     }
-    applies && other.cardType.alive
+    applies && !other.cardType.isInstanceOf[SpellCard] && other.cardType.alive
   }
 
   private def filterApplies(card: Card, f: Filter, other: Card): Boolean = {
@@ -112,10 +117,14 @@ object Game extends App {
 
   }
 
+  /**
+   * Apply effect to all cards that pass the filter.
+   */
   def allCard(card: Card, ef: AllEventEffect) {
     var cards = fieldCards.filter(filtersApply(card, ef.filters, _))
     cards = tauntCheck(cards)
-    for { other <- cards } other.applyEffect(ef.creatureEffects)
+    for { other <- cards }
+      other.applyEffect(ef.creatureEffects)
   }
   /**
    * Applies creatureEffects to a random card
@@ -161,6 +170,9 @@ object Game extends App {
 
   }
 
+  /**
+   * Apply UntilDeath effect from all the current player's cards.
+   */
   def checkForUntilDeath() {
     println(s"MÄNG - UntilDeath check. Kõik ${getCurrentPlayer().name} kaardid")
     for { card <- fieldCards if card.playerName == getCurrentPlayer().name }
@@ -203,7 +215,7 @@ object Game extends App {
   }
 
   /**
-   * Create players
+   * Create players. Add Player heros.
    */
   def setup() {
     FileReader.readPaths()
@@ -226,6 +238,9 @@ object Game extends App {
     }
   }
 
+  /**
+   * Returns the player whose turn it is
+   */
   def getCurrentPlayer(): Player = {
     if (redPlayerTurn)
       red
@@ -233,6 +248,9 @@ object Game extends App {
       blue
   }
 
+  /**
+   * If one card from list has Taunt true, returns only cards with Taunt true. Else returns all cards.
+   */
   private def tauntCheck(cards: Buffer[Card]): Buffer[Card] = {
     if (cards.exists { x => tauntPredicate(x) })
       cards.filter { x => tauntPredicate(x) }
@@ -240,6 +258,9 @@ object Game extends App {
       cards
   }
 
+  /**
+   * Returns true if this card has Taunt True
+   */
   private def tauntPredicate(x: Card): Boolean = {
     x.cardType.isInstanceOf[MinionCard] && x.cardType.asInstanceOf[MinionCard].taunt
   }

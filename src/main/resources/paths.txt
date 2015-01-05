@@ -1,2 +1,2 @@
-red=src/main/resources/testFile2.txt
-blue=src/main/resources/testFile.txt
+red=src/main/resources/deck_red.txt
+blue=src/main/resources/deck_blue.txt

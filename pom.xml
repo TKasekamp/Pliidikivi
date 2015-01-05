@@ -22,7 +22,7 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				<scalaVersion>2.11.0</scalaVersion>
+				<scalaVersion>2.11.2</scalaVersion>
 				<!-- change to "2.11" once Scala 2.11.0 final is out -->
 				<scalaBinaryVersion>2.11</scalaBinaryVersion>
 			</properties>
@@ -76,6 +76,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+								<version>3.1</version>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>

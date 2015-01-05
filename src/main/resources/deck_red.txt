@@ -1,0 +1,28 @@
+[ ("Boulderfist Ogre"
+, 6
+, MinionCard [OnPlay [Choose [Any [AnyCreature, AnyHero], Not [Any [Self], Type Beast]] [Health Relative (-1), Taunt True], DrawCard]
+, OnDeath [DrawCard]] 6 7 False Just Beast),
+
+("Elven Archer"
+, 4
+, MinionCard [OnPlay [Choose [] [Health Relative (-1)]]] 4 5 False Nothing),
+
+("Gnomish Inventor"
+, 4
+, MinionCard [OnPlay [DrawCard]] 2 4 False Nothing),
+
+("Minotaur"
+, 7
+, MinionCard [] 4 4 True Just Beast),
+
+("Shlur"
+, 2
+, MinionCard [] 1 2 False Just Murloc),
+
+("Flash"
+, 1
+, SpellCard [OnPlay [Random [Not [AnyFriendly, Self]] [Health Relative (-2)]]]),
+
+("Heal"
+, 1
+, SpellCard [OnPlay [Choose [AnyFriendly] [Health Absolute 2]]])]

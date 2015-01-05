@@ -9,6 +9,9 @@ class Card(val name: String, val cost: Int, val cardType: CardType, var playerNa
     "Card: " + name + ", ownerName: " + playerName + ", cost: " + cost + ", cardType : " + cardType
   }
 
+  /**
+   * Apply the creatureEffects. If the card has ONDEATH or ONDAMAGE effects activated, then apply them to all the other cards.
+   */
   def applyEffect(cList: List[CreatureEffect]) {
     for (creatureEffect <- cList) {
       val value = cardType.applyEffect(creatureEffect)

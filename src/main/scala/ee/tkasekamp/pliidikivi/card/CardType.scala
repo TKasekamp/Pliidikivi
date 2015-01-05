@@ -12,9 +12,12 @@ abstract class CardType(val effects: List[Effect]) {
 class MinionCard(override val effects: List[Effect], var health: Int, var attack: Int, var taunt: Boolean, val minionType: MinionType.Value) extends CardType(effects) {
 
   override def toString(): String = {
-    "MinionCard. Effects: " + effects.mkString("[", ",", "]") + ", health: " + health + ", attack: " + attack + ", minionType: " + minionType
+    "MinionCard. Effects: " + effects.mkString("[", ",", "]") + ", health: " + health + ", attack: " + attack + ", taunt: " + taunt + ", minionType: " + minionType
   }
 
+  /**
+   * Apply the creatureEffect. Returns an int, by default 0.
+   */
   override def applyEffect(creatureEffect: CreatureEffect): Int = {
     if (alive) {
       (creatureEffect) match {
@@ -27,15 +30,18 @@ class MinionCard(override val effects: List[Effect], var health: Int, var attack
     } else 0
   }
 
+  /**
+   * Checks if any ondamage or untildeath effects have to be activated.
+   */
   private def checkStuff(cef: HealthCreatureEffect): Int = {
     if (checkForDeath() && checkForDamage(cef)) {
-      3
+      3 // Dead and damage effects
     } else if (checkForDeath()) {
-      2
+      2 // Dead effects
     } else if (checkForDamage(cef)) {
-      1
+      1 // Damage effects
     } else
-      0
+      0 // No effect
   }
 
   /**
@@ -79,6 +85,7 @@ class HeroCard() extends CardType(List()) {
   override def toString(): String = {
     "HeroCard. Health: " + health
   }
+
   override def applyEffect(creatureEffect: CreatureEffect): Int = {
     (creatureEffect) match {
       case creatureEffect: HealthCreatureEffect =>
